@@ -1,13 +1,7 @@
+%% Esta clase corresponde a una versión alpha de la clase original. 
 %%
-%% This is file `aleph-notas.cls',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% aleph-notas.dtx  (with options: `aleph-notas')
-%% 
-%% This is a generated file.
-%% LaTeX class for typesetting notes
+%% En esta versión se incluyó: 
+%%     - Soporte para sub sub secciones y estilos de sección no numerados. 2021-05-01
 %% 
 %% Copyright (C) 2020 by Andres Merino <mat.andresmerino@gmail.com>
 %% 
@@ -59,7 +53,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Son necesarios los siguientes paquetes para dar formato al documento.
+%%  Son necesarios los siguientes paquetes para dar 
+
+al documento.
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
@@ -224,10 +220,21 @@
     {\color{colortext}\large\titlerule\vspace{.05ex}
     \thesection.\ }
     [\color{colortext}\vspace{.2ex}\titlerule]
+%%  Estilo de secciones no numeradas
+\titleformat{name=\section,numberless}[display]
+  {\vspace*{-2mm}\bfseries\scshape\centering}
+    {}{1ex}
+    {\color{colortext}\large\titlerule\vspace{.05ex}
+     }
+    [\color{colortext}\vspace{.2ex}\titlerule]
 %%  Estilo subsecciones
 \titleformat{\subsection}
     {\color{colortext}\normalsize\bfseries}
     {\thesubsection}{1em}{}
+%%  Estilo de subsubsecciones
+\titleformat{\subsubsection}
+    {\color{colortext}\normalsize\bfseries}
+    {\thesubsubsection}{1em}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo teoremas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
