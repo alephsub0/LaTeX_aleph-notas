@@ -79,7 +79,7 @@ al documento.
 \RequirePackage{float}
 \RequirePackage{geometry}
 \RequirePackage[colorlinks,linkcolor=black,urlcolor=black,
-   citecolor=black,bookmarks=true]{hyperref}
+   citecolor=black,bookmarks=true,breaklinks]{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
