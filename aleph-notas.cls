@@ -53,9 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Son necesarios los siguientes paquetes para dar 
-
-al documento.
+%%  Son necesarios los siguientes paquetes para dar al documento.
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
