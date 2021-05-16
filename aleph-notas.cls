@@ -9,7 +9,7 @@
 %% consultar la documentación.
 %% 
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
-\ProvidesClass{aleph-notas}[2020/08/14 v1.1]
+\ProvidesClass{aleph-notas-alpha}[2020/08/14 alpha v1.1+001]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
