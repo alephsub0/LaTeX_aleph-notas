@@ -63,7 +63,7 @@
 \RequirePackage{amsmath,amsthm}
 \RequirePackage{mdframed}
 \RequirePackage[many]{tcolorbox}
-\RequirePackage{fontawesome5}
+\RequirePackage{fontawesome}
 \RequirePackage{mathpazo}
 \RequirePackage{graphicx}
 \RequirePackage{titlesec}
