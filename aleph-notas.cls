@@ -76,8 +76,7 @@
    justification=centerlast]{caption}
 \RequirePackage{float}
 \RequirePackage{geometry}
-\RequirePackage[colorlinks,linkcolor=black,urlcolor=black,
-   citecolor=black,bookmarks=true,breaklinks]{hyperref}
+\RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
