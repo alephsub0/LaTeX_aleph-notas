@@ -14,7 +14,7 @@
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Primero definimos una serie de comandos auxiliares para las opciones
-\newcommand\@idioma{spanish,es-noitemize}
+\newcommand\@idioma{english,spanish,es-noitemize}
 \newcommand\@tipo{}
 \RequirePackage{ifthen}
 \newboolean{comentarios}\setboolean{comentarios}{false}
