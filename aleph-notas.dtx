@@ -111,8 +111,7 @@
    justification=centerlast]{caption}
 \RequirePackage{float}
 \RequirePackage{geometry}
-\RequirePackage[colorlinks,linkcolor=black,urlcolor=black,
-   citecolor=black,bookmarks=true]{hyperref}
+\RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
 %    \end{macrocode}
 %  \subsection{Variables}
 %
@@ -322,11 +321,25 @@
     \thesection.\ }
     [\color{colortext}\vspace{.2ex}\titlerule]
 %    \end{macrocode}
+%%  Estilo de sección no numerada
+%    \begin{macrocode}
+\titleformat{name=\section,numberless}[display]
+    {\vspace*{-2mm}\bfseries\scshape\centering}
+    {}{1ex}
+    {\color{colortext}\large\titlerule\vspace{.05ex}}
+    [\color{colortext}\vspace{.2ex}\titlerule]
+%    \end{macrocode}
 %%  Estilo subsecciones
 %    \begin{macrocode}
 \titleformat{\subsection}
     {\color{colortext}\normalsize\bfseries}
     {\thesubsection}{1em}{}
+%    \end{macrocode}
+%%  Estilo de subsubsecciones
+%    \begin{macrocode}
+\titleformat{\subsubsection}
+    {\color{colortext}\normalsize\bfseries}
+    {\thesubsubsection}{1em}{}
 %    \end{macrocode}
 %
 %  \subsection{Formato de teoremas}
