@@ -9,6 +9,9 @@ Para visualizar un ejemplo puedes acceder al repositorio de GitHub de esta clase
 ```
 1.1  2020-08-14
    - Se incluye estilos de formato para ambientes: fclasico, fnuevo
+1.1  2021-07-20
+   - Se arregla el estilo de sección no numerada y para subsecciones
+   - Se implementa hipervínculos sin color
 ```
 
 Repositorio:  https://github.com/mate-andres/LaTeX_aleph-notas

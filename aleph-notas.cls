@@ -82,8 +82,7 @@
    justification=centerlast]{caption}
 \RequirePackage{float}
 \RequirePackage{geometry}
-\RequirePackage[colorlinks,linkcolor=black,urlcolor=black,
-   citecolor=black,bookmarks=true]{hyperref}
+\RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -224,10 +223,20 @@
     {\color{colortext}\large\titlerule\vspace{.05ex}
     \thesection.\ }
     [\color{colortext}\vspace{.2ex}\titlerule]
+%%  Estilo de sección no numerada
+\titleformat{name=\section,numberless}[display]
+    {\vspace*{-2mm}\bfseries\scshape\centering}
+    {}{1ex}
+    {\color{colortext}\large\titlerule\vspace{.05ex}}
+    [\color{colortext}\vspace{.2ex}\titlerule]
 %%  Estilo subsecciones
 \titleformat{\subsection}
     {\color{colortext}\normalsize\bfseries}
     {\thesubsection}{1em}{}
+%%  Estilo de subsubsecciones
+\titleformat{\subsubsection}
+    {\color{colortext}\normalsize\bfseries}
+    {\thesubsubsection}{1em}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo teoremas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
