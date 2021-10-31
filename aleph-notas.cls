@@ -35,7 +35,7 @@
     inner=1.7cm,outer=1.7cm,top=2.25cm,bottom=2.25cm}{geometry}}
 \DeclareOption{a4}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,headheight=15pt}{geometry}}
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
     inner=1.7cm,outer=1.7cm,top=2.25cm,bottom=2.25cm}{geometry}}
