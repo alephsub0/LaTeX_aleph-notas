@@ -58,7 +58,7 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
 \RequirePackage{calc}
-\RequirePackage{etex}
+% \RequirePackage{etex}
 \RequirePackage{xcolor}
 \RequirePackage{amsmath,amsthm}
 \RequirePackage{mdframed}
