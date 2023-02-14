@@ -1,38 +1,52 @@
-%%
-%% This is file `aleph-notas.cls',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% aleph-notas.dtx  (with options: `aleph-notas')
-%% 
-%% This is a generated file.
-%% LaTeX class for typesetting notes
-%% 
-%% Copyright (C) 2022 by Andres Merino <mat.andresmerino@gmail.com>
-%% 
-%% Para un mejor uso y entendimiento de la actual clase,
-%% consultar la documentación.
-%% 
+% \iffalse 
+%
+% Copyright (C) 2022 by Andres Merino <mat.andresmerino@gmail.com>
+% 
+% Para un mejor uso y entendimiento de la actual clase, consultar la documentación.
+% -----------------------------------------------------------
+%
+% \fi
+%
+%  \section{Implementación}
+%  \subsection{Identificación}
+%  Dado que esta clase utiliza el comando \cmd{\RequirePackage}, no funciona con 
+%  versiones antiguas de \LaTeXe.
+%    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
+%    \end{macrocode}
+%  El paquete se identifica con su fecha de lanzamiento y su número de versión.
+%  \begin{macrocode}
 \ProvidesClass{aleph-notas}[2022/10/26 v2.0.1b]
+%    \end{macrocode}
+%  \subsection{Inicialización}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Primero definimos una serie de comandos auxiliares para las opciones
+% \fi
+%    \begin{macrocode}
 \newcommand\@idioma{spanish,es-noitemize}
 \newcommand\@tipo{}
 \RequirePackage{ifthen}
 \newboolean{comentarios}\setboolean{comentarios}{false}
 \newboolean{codigo}\setboolean{codigo}{false}
+%    \end{macrocode}
+%  \subsection{Declaración de opciones}
+%
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Opciones
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Opciones de tamaño de letra.
+%    \begin{macrocode}
 \DeclareOption{10pt}{\PassOptionsToClass{10pt}{article}}
 \DeclareOption{11pt}{\PassOptionsToClass{11pt}{article}}
 \DeclareOption{12pt}{\PassOptionsToClass{12pt}{article}}
+%    \end{macrocode}
 %%  Opciones predeterminadas de tamaño de página |compacto| y |amplio|.
+%    \begin{macrocode}
 \DeclareOption{amplio}{
     \PassOptionsToPackage{paperwidth=195mm,paperheight=265mm,twoside,
     inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
@@ -45,23 +59,31 @@
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
     inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
+%    \end{macrocode}
 %%  Para la versión 2.0.1b se elimina el formato antiguo
+%    \begin{macrocode}
 \DeclareOption{comentarios}{\setboolean{comentarios}{true}}
+%    \end{macrocode}
 %%  Opción para desplegar códigos
+%    \begin{macrocode}
 \DeclareOption{codigo}{\setboolean{codigo}{true}}
+%    \end{macrocode}
+%  \subsubsection{Procesamiento de Opciones}
 %%  Opciones predeterminadas son |compacto|, |fclasico| y |10pt|.
+%    \begin{macrocode}
 \ExecuteOptions{compacto,10pt}
 \ProcessOptions\relax
 \LoadClass{article}
+%    \end{macrocode}
+%  \subsection{Paquetes}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Son necesarios los siguientes paquetes para dar formato al documento.
-\RequirePackage{iftex}
-\ifPDFTeX % LaTeX y pdfLaTeX
-    \RequirePackage[utf8]{inputenc}
-\else % XeLaTeX
-\fi
+%    \begin{macrocode}
+\RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
 \RequirePackage{xcolor}
@@ -81,111 +103,145 @@
 \RequirePackage{geometry}
 \RequirePackage{tabularray}
 \RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
+%    \end{macrocode}
+%  \subsection{Paquetes de tipografía}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes de tipografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Para esta nueva versión 2.0.1b se incluye la opción de modificar la tipografía por defecto. Las opciones son Palatino Linotype y Montserrat.
+%    \begin{macrocode}
 \newcommand{\fuente}[1]{
     \ifthenelse{\equal{#1}{mathpazo}}
     {
-        \ifPDFTeX % LaTeX y pdfLaTeX
-            \RequirePackage{mathpazo}
-        \else % XeLaTeX
-            \RequirePackage{fontspec}
-            \RequirePackage{mathpazo}
-            \setmainfont
-             [ BoldFont       = texgyrepagella-bold.otf ,
-               ItalicFont     = texgyrepagella-italic.otf ,
-               BoldItalicFont = texgyrepagella-bolditalic.otf ]
-             {texgyrepagella-regular.otf}
-            % \RequirePackage{newpxtext,newpxmath}
-        \fi
+        \RequirePackage{mathpazo}
     }{}
     \ifthenelse{\equal{#1}{montserrat}}
     {
-        \ifPDFTeX % LaTeX y pdfLaTeX
-            \RequirePackage[defaultfam,tabular,lining]{montserrat}
-                \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
-            \RequirePackage[OT1]{eulervm}
-            \renewcommand{\labelitemi}{$\bullet$}
-            \DeclareMathSizes{10}{10.78}{7}{7}
-        \else % XeLaTeX
-            \RequirePackage[OT1]{eulervm}
-            \RequirePackage{fontspec}
-            \setmainfont{montserrat}
-            \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
-            \renewcommand{\labelitemi}{$\bullet$}
-            \DeclareMathSizes{10}{10.78}{7}{7}
-        \fi
+        \RequirePackage[defaultfam,tabular,lining]{montserrat}
+            \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+        \RequirePackage{eulervm}
+        \renewcommand{\labelitemi}{$\bullet$}
     }{}
 }
+%    \end{macrocode}
+%  \subsection{Variables}
+%
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  La siguiente es la lista de las variables internas utilizadas para el formato.
+%    \begin{macrocode}
 \newcommand\@institucion{Alephsub0}
 \newcommand\@temacorto{}
 \newcommand\@interlineado{1.2}
+%    \end{macrocode}
+%  \subsection{Colores predeterminados}
+%
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Colores predeterminados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Los siguientes son los colores predefinidos de la clase.
+%    \begin{macrocode}
 \definecolor{colordef}{cmyk}{0.81,0.62,0.00,0.22}
 \definecolor{colortext}{cmyk}{0.81,0.62,0.00,0.22}
+%    \end{macrocode}
+%
+%  \subsection{Espaciado}
+%
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Espaciado
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Para mejorar la medida entre las ecuaciones.
+%    \begin{macrocode}
 \AtBeginDocument{
    \addtolength{\abovedisplayskip}{-0.5mm}
    \addtolength{\belowdisplayskip}{-0.5mm}
     }
+%    \end{macrocode}
 %%  Interlineado
+%    \begin{macrocode}
 \newcommand{\interlineado}[1]{\renewcommand\@interlineado{#1}}
+%    \end{macrocode}
 %%  Espacio para recuadro de teoremas
+%    \begin{macrocode}
 \newcommand{\espteo}[1]{\renewcommand\@espteo{#1}}
+%    \end{macrocode}
+%  \subsection{Comandos}
+%    
+%  \subsubsection{Comandos de datos de las notas}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Definición de comandos de datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Institucioón
+%    \begin{macrocode}
 \newcommand{\institucion}[1]%
     {\renewcommand\@institucion{#1}}
+%    \end{macrocode}
 %%  Autor: autor corto, autor normal
+%    \begin{macrocode}
 \newcommand{\autor}[2][]{\ifthenelse{\equal{#1}{}}
    {\newcommand\@autorcorto{#2}\newcommand\@autor{#2}}
    {\newcommand\@autorcorto{#1}\newcommand\@autor{#2}}}
+%    \end{macrocode}
 %%  Carrera
+%    \begin{macrocode}
 \newcommand{\carrera}[1]%
     {\newcommand\@carrera{#1}}
+%    \end{macrocode}
 %%  Asignatura
+%    \begin{macrocode}
 \newcommand{\asignatura}[1]%
     {\newcommand\@asignatura{#1}}
+%    \end{macrocode}
 %%  Tema
+%    \begin{macrocode}
 \newcommand{\tema}[2][]{\ifthenelse{\equal{#1}{}}
    {\renewcommand\@temacorto{#2}\newcommand\@tema{#2}}
    {\renewcommand\@temacorto{#1}\newcommand\@tema{#2}}}
+%    \end{macrocode}
 %%  Fecha
+%    \begin{macrocode}
 \newcommand{\fecha}[1]%
     {\newcommand\@fecha{#1}}
+%    \end{macrocode}
 %%  Logo uno
+%    \begin{macrocode}
 \newcommand{\logouno}[2][0.1\linewidth]%
     {\newcommand\@logouno{#2}
     \newcommand\@longlogouno{#1}}
+%    \end{macrocode}
 %%  Logo dos
+%    \begin{macrocode}
 \newcommand{\logodos}[2][0.1\linewidth]%
     {\newcommand\@logodos{#2}
     \newcommand\@longlogodos{#1}}
+%    \end{macrocode}
 %%  Para la versión 2.0.1b se elimina la Longitud del título
+%  \subsection{Encabezado}
+%
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Encabezado
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Comando para generar el título
+%    \begin{macrocode}
 \newcommand\@titulo{
     \textbf{\textsc{\large\@institucion
     \normalsize
     \ifthenelse{
-            \isundefined{\@carrera}
-            \OR
+            \isundefined{\@carrera} 
+            \OR 
             \isundefined{\@asignatura}
         }
         {
@@ -204,7 +260,9 @@
     \parbox{\@longlogodos}
         {\includegraphics[width=\linewidth]{\@logodos}}
     }
+%    \end{macrocode}
 %%  Comando para generar el encabezado
+%    \begin{macrocode}
 \newcommand{\encabezado}{
     \vspace*{-15mm}
     \begingroup\color{colortext}
@@ -223,12 +281,21 @@
     \end{minipage}
     \endgroup\\
 }
+%    \end{macrocode}
+%
+%  \subsection{Formato}
+%  \subsubsection{Estilo de página}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo página
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Interlineado
+%    \begin{macrocode}
 \renewcommand{\baselinestretch}{\@interlineado}
+%    \end{macrocode}
 %%  Encabezado y pie de página
+%    \begin{macrocode}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot[C]{\thepage}
@@ -237,34 +304,51 @@
 \renewcommand{\headrulewidth}{.2pt}
 \renewcommand{\footrulewidth}{0pt}
 \addtolength{\headheight}{.1pt}
+%    \end{macrocode}
+%  \subsubsection{Estilo de títulos}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo títulos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Estilo de sección
+%    \begin{macrocode}
 \titleformat{\section}[display]
     {\vspace*{-2mm}\bfseries\scshape\centering}
     {}{1ex}
     {\color{colortext}\large\titlerule\vspace{.05ex}
     \thesection.\ }
     [\color{colortext}\vspace{.2ex}\titlerule]
+%    \end{macrocode}
 %%  Estilo de sección no numerada
+%    \begin{macrocode}
 \titleformat{name=\section,numberless}[display]
     {\vspace*{-2mm}\bfseries\scshape\centering}
     {}{1ex}
     {\color{colortext}\large\titlerule\vspace{.05ex}}
     [\color{colortext}\vspace{.2ex}\titlerule]
+%    \end{macrocode}
 %%  Estilo subsecciones
+%    \begin{macrocode}
 \titleformat{\subsection}
     {\color{colortext}\normalsize\bfseries}
     {\thesubsection}{1em}{}
+%    \end{macrocode}
 %%  Estilo de subsubsecciones
+%    \begin{macrocode}
 \titleformat{\subsubsection}
     {\color{colortext}\normalsize\bfseries}
     {\thesubsubsection}{1em}{}
+%    \end{macrocode}
+%
+%  \subsection{Formato de teoremas}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo teoremas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Keys temporales: |tipo|,|color|, |contador| e |icóno|.
+% \fi
+%%  Keys temporales: |tipo|,|color|, |contador| e |icóno|. 
+%    \begin{macrocode}
 \def\tcb@@tipo{}
     \tcbset{ tipo/.code = {\def\tcb@@tipo{#1} } }
 \def\tcb@@contador{}
@@ -273,15 +357,19 @@
     \tcbset{ color/.code = {\def\tcb@@color{#1} } }
 \def\tcb@@icono{{\large\faWarning}}
     \tcbset{ icono/.code = {\def\tcb@@icono{#1} } }
+%    \end{macrocode}
 %%  Estilo de teorema.
+%    \begin{macrocode}
 \newtheoremstyle{estiloteorema}%
     {9pt}{9pt}{}{0pt}
     {\bfseries\color{\tcb@@color}}
     {}{ }
     {\textsc{\thmname{#1}\thmnumber{ #2}}\thmnote{: #3}.}
+%    \end{macrocode}
 %%  Formatos del estilo
 %%
 %%  Recuadro sin título aparte
+%    \begin{macrocode}
 \tcbset{ recuadrost/.style ={
     before skip=10pt,arc=0mm,breakable,enhanced,
     colback=\tcb@@color!7,colframe=\tcb@@color,
@@ -291,7 +379,9 @@
     % parbox=false
     }
     }
+%    \end{macrocode}
 %%  Estilo de post-it
+%    \begin{macrocode}
 \tcbset{ postit/.style ={
     % -> Opciones generales
     breakable,enhanced,
@@ -316,7 +406,9 @@
         }
     }
     }
+%    \end{macrocode}
 %%  Recuadro con título aparte interno
+%    \begin{macrocode}
 \tcbset{ recuadroctint/.style ={
     % -> Opciones generales
     before skip=10pt,arc=0mm,breakable,enhanced,
@@ -342,14 +434,22 @@
         },
     }
     }
+%    \end{macrocode}
+%
+%  \subsubsection{Definición de ambientes de teoremas}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Definición de ambientes de teoremas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Ambientes sin recuadro: |ejem| y |obs|
+%    \begin{macrocode}
 \theoremstyle{estiloteorema}
     \newtheorem{ejem}{Ejemplo}
     \newtheorem*{obs}{\tikz \fill[colordef] (1ex,1ex) circle (.8ex); Observaci\'on}
+%    \end{macrocode}
 %%  Ambientes con recuadrost: |prop|, |cor|, |lem|, |ejer|.
+%    \begin{macrocode}
     \newtheorem{prop}{Proposici\'on}
         \tcolorboxenvironment{prop}{%
             color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
@@ -366,26 +466,40 @@
         \tcolorboxenvironment{ejer}{%
             color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
         }
+%    \end{macrocode}
 %%  Ambientes con título aparte: |teo|.
+%    \begin{macrocode}
 \newtcolorbox{teo}[1][]
     {tipo=Teorema,contador=prop,color=colordef,recuadroctint={#1}}
+%    \end{macrocode}
 %%  Ambientes con título aparte: |defi|.
+%    \begin{macrocode}
 \newcounter{defi}
 \renewcommand{\thedefi}{\arabic{defi}}
 \newtcolorbox{defi}[1][]
     {tipo=Definici\'on,contador=defi,color=colordef,recuadroctint={#1}}
+%    \end{macrocode}
 %%  Ambientes con título aparte: |axioma|.
+%    \begin{macrocode}
 \newcounter{axioma}
 \renewcommand{\theaxioma}{\arabic{axioma}}
 \newtcolorbox{axioma}[1][]
     {tipo=Axioma,contador=axioma,color=colordef,recuadroctint={#1}}
+%    \end{macrocode}
 %%  Ambientes advertencia: |advertencia|.
+%    \begin{macrocode}
 \newtcolorbox{advertencia}
     {color=yellow,postit}
+%    \end{macrocode}
+%
+%  \subsection{Ambiente opcionales}
+% \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Ambientes opcionales
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \fi
 %%  Estilo de comentarios para el docente
+%    \begin{macrocode}
 \ifthenelse{\boolean{comentarios}}{
     \newtcolorbox{comentarios}{
         breakable,
@@ -408,13 +522,16 @@
         }
     }
     {\excludecomment{comentarios}}
+%    \end{macrocode}
 %%  Estilo de código para el docente
+%    \begin{macrocode}
 \ifthenelse{\boolean{codigo}}{
     \newtcolorbox{codigo}{
     blanker,breakable, left=3mm, before skip=10pt, after skip=10pt, borderline west={1mm}{0pt}{colordef!50}, fontlower=\small}
     }
     {\excludecomment{codigo}}
+%    \end{macrocode}
+%
 %%  Y ¡se acabó!
+%    \Finale
 \endinput
-%%
-%% End of file `aleph-notas.cls'.

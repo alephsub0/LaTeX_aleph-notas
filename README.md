@@ -14,14 +14,25 @@ Para visualizar un ejemplo puedes acceder al repositorio de GitHub de esta clase
    - Se implementa hipervínculos sin color
 ```
 
+## aleph-notas 2.0.1 (beta)
+
+### Últimos cambios
+
+```
+2.0.1 2022-10-26
+   - Se elimina el estilo clásico
+   - Se agrega soporte nativo para la fuente Monstserrat
+   - Se modifca el diseño del encabezado y los encabezados y pies de páginas
+
 Repositorio:  https://github.com/mate-andres/LaTeX_aleph-notas
 
 ### Licencia
 
-Este paquete se encuentra bajo licencia LaTeX Project Public License 1.3c 
+Este paquete se encuentra bajo licencia LaTeX Project Public License 1.3c
 
 ________
 Andrés Merino,
 Proyecto Alephsub0 --- https://www.alephsub0.org/
 
 2020/08/14
+```
