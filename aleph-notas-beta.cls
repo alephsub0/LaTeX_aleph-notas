@@ -1,21 +1,21 @@
 %%
-%% This is file `aleph-notas.cls',
+%% This is file `aleph-notas-beta.cls',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% aleph-notas.dtx  (with options: `aleph-notas')
+%% aleph-notas-beta.dtx  (with options: `aleph-notas-beta')
 %% 
 %% This is a generated file.
 %% LaTeX class for typesetting notes
 %% 
-%% Copyright (C) 2022 by Andres Merino <mat.andresmerino@gmail.com>
+%% Copyright (C) 2023 by Andres Merino <mat.andresmerino@gmail.com>
 %% 
 %% Para un mejor uso y entendimiento de la actual clase,
 %% consultar la documentación.
 %% 
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
-\ProvidesClass{aleph-notas}[2022/10/26 v2.0.1b]
+\ProvidesClass{aleph-notas-beta}[2023/02/20 v2.0.1b]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -276,7 +276,7 @@
     drop fuzzy shadow,
     left=6mm,right=2mm,top=0.5mm,bottom=0.5mm,
     sharp corners,rounded corners=southeast,arc is angular,arc=3mm,
-    parbox=false,
+    % parbox=false,
     underlay unbroken and last = {%
         \path[fill=tcbcolback!80!black]
         ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
@@ -301,7 +301,7 @@
     top=0.5mm,bottom=0.5mm,left=2mm,right=2mm,
     fontupper=\normalsize,
     code={\refstepcounter{\tcb@@contador}},
-    parbox=false,
+    % parbox=false,
     % Dibujo del título
     overlay unbroken and first = {
         % Borde superior grueso
@@ -392,4 +392,4 @@
 %%  Y ¡se acabó!
 \endinput
 %%
-%% End of file `aleph-notas.cls'.
+%% End of file `aleph-notas-beta.cls'.
