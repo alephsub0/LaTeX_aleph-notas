@@ -16,7 +16,7 @@
 %    \end{macrocode}
 %  El paquete se identifica con su fecha de lanzamiento y su número de versión.
 %  \begin{macrocode}
-\ProvidesClass{aleph-notas-beta}[2023/02/20 v2.0.1b]
+\ProvidesClass{aleph-notas-beta}[2023/11/30 v2.0]
 %    \end{macrocode}
 %  \subsection{Inicialización}
 % \iffalse
@@ -60,7 +60,7 @@
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
     inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
 %    \end{macrocode}
-%%  Para la versión 2.0.1b se elimina el formato antiguo
+%%  Opción para desplegar comentarios
 %    \begin{macrocode}
 \DeclareOption{comentarios}{\setboolean{comentarios}{true}}
 %    \end{macrocode}
@@ -69,7 +69,7 @@
 \DeclareOption{codigo}{\setboolean{codigo}{true}}
 %    \end{macrocode}
 %  \subsubsection{Procesamiento de Opciones}
-%%  Opciones predeterminadas son |compacto|, |fclasico| y |10pt|.
+%%  Opciones predeterminadas son |compacto|, y |10pt|.
 %    \begin{macrocode}
 \ExecuteOptions{compacto,10pt}
 \ProcessOptions\relax
@@ -83,7 +83,11 @@
 % \fi
 %%  Son necesarios los siguientes paquetes para dar formato al documento.
 %    \begin{macrocode}
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{iftex}
+\ifPDFTeX % LaTeX y pdfLaTeX
+    \RequirePackage[utf8]{inputenc}
+\else % XeLaTeX
+\fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
 \RequirePackage{xcolor}
@@ -110,24 +114,40 @@
 %% --- Paquetes de tipografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \fi
-%%  Para esta nueva versión 2.0.1b se incluye la opción de modificar la tipografía por defecto. Las opciones son Palatino Linotype y Montserrat.
-%    \begin{macrocode}
+%% El siguiente comando define las opciones de tipografía a utilizar de acuerdo al tipo de compilador
 \newcommand{\fuente}[1]{
     \ifthenelse{\equal{#1}{mathpazo}}
     {
-        \RequirePackage{mathpazo}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage{mathpazo}
+        \else % XeLaTeX
+            \RequirePackage{fontspec}
+            \RequirePackage{mathpazo}
+            \setmainfont
+             [ BoldFont       = texgyrepagella-bold.otf ,
+               ItalicFont     = texgyrepagella-italic.otf ,
+               BoldItalicFont = texgyrepagella-bolditalic.otf ]
+             {texgyrepagella-regular.otf}
+            % \RequirePackage{newpxtext,newpxmath}
+        \fi
     }{}
     \ifthenelse{\equal{#1}{montserrat}}
     {
-        \RequirePackage[defaultfam,tabular,lining]{montserrat}
-            \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
-        \RequirePackage{eulervm}
-        \renewcommand{\labelitemi}{$\bullet$}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage[defaultfam,tabular,lining]{montserrat}
+                \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+            \RequirePackage[OT1]{eulervm}
+            \renewcommand{\labelitemi}{$\bullet$}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \else % XeLaTeX
+            \RequirePackage[OT1]{eulervm}
+            \RequirePackage{fontspec}
+            \setmainfont{montserrat}
+            \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \fi
     }{}
 }
-%    \end{macrocode}
-%  \subsection{Variables}
-%
 % \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
@@ -182,7 +202,7 @@
 %% --- Definición de comandos de datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \fi
-%%  Institucioón
+%%  Institución
 %    \begin{macrocode}
 \newcommand{\institucion}[1]%
     {\renewcommand\@institucion{#1}}
@@ -226,7 +246,6 @@
     {\newcommand\@logodos{#2}
     \newcommand\@longlogodos{#1}}
 %    \end{macrocode}
-%%  Para la versión 2.0.1b se elimina la Longitud del título
 %  \subsection{Encabezado}
 %
 % \iffalse

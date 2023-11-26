@@ -15,7 +15,7 @@
 %% consultar la documentación.
 %% 
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
-\ProvidesClass{aleph-notas-beta}[2023/02/20 v2.0.1b]
+\ProvidesClass{aleph-notas-beta}[2023/11/30 v2.0]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,11 +45,11 @@
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
     inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
-%%  Para la versión 2.0.1b se elimina el formato antiguo
+%%  Opción para desplegar comentarios
 \DeclareOption{comentarios}{\setboolean{comentarios}{true}}
 %%  Opción para desplegar códigos
 \DeclareOption{codigo}{\setboolean{codigo}{true}}
-%%  Opciones predeterminadas son |compacto|, |fclasico| y |10pt|.
+%%  Opciones predeterminadas son |compacto|, y |10pt|.
 \ExecuteOptions{compacto,10pt}
 \ProcessOptions\relax
 \LoadClass{article}
@@ -57,7 +57,11 @@
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Son necesarios los siguientes paquetes para dar formato al documento.
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{iftex}
+\ifPDFTeX % LaTeX y pdfLaTeX
+    \RequirePackage[utf8]{inputenc}
+\else % XeLaTeX
+\fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
 \RequirePackage{xcolor}
@@ -80,18 +84,38 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes de tipografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Para esta nueva versión 2.0.1b se incluye la opción de modificar la tipografía por defecto. Las opciones son Palatino Linotype y Montserrat.
+%% El siguiente comando define las opciones de tipografía a utilizar de acuerdo al tipo de compilador
 \newcommand{\fuente}[1]{
     \ifthenelse{\equal{#1}{mathpazo}}
     {
-        \RequirePackage{mathpazo}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage{mathpazo}
+        \else % XeLaTeX
+            \RequirePackage{fontspec}
+            \RequirePackage{mathpazo}
+            \setmainfont
+             [ BoldFont       = texgyrepagella-bold.otf ,
+               ItalicFont     = texgyrepagella-italic.otf ,
+               BoldItalicFont = texgyrepagella-bolditalic.otf ]
+             {texgyrepagella-regular.otf}
+            % \RequirePackage{newpxtext,newpxmath}
+        \fi
     }{}
     \ifthenelse{\equal{#1}{montserrat}}
     {
-        \RequirePackage[defaultfam,tabular,lining]{montserrat}
-            \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
-        \RequirePackage{eulervm}
-        \renewcommand{\labelitemi}{$\bullet$}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage[defaultfam,tabular,lining]{montserrat}
+                \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+            \RequirePackage[OT1]{eulervm}
+            \renewcommand{\labelitemi}{$\bullet$}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \else % XeLaTeX
+            \RequirePackage[OT1]{eulervm}
+            \RequirePackage{fontspec}
+            \setmainfont{montserrat}
+            \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \fi
     }{}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,7 +146,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Definición de comandos de datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Institucioón
+%%  Institución
 \newcommand{\institucion}[1]%
     {\renewcommand\@institucion{#1}}
 %%  Autor: autor corto, autor normal
@@ -150,7 +174,6 @@
 \newcommand{\logodos}[2][0.1\linewidth]%
     {\newcommand\@logodos{#2}
     \newcommand\@longlogodos{#1}}
-%%  Para la versión 2.0.1b se elimina la Longitud del título
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Encabezado
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
