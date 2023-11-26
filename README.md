@@ -7,7 +7,7 @@ Para visualizar un ejemplo puedes acceder al repositorio de GitHub de esta clase
 ### Últimos cambios
 
 ```
-2.0  2020-08-14
+2.0  2023-11-27
    - Se elimina el estilo clásico
    - Se agrega soporte nativo para la fuente Monstserrat
    - Se modifca el diseño del encabezado y los encabezados y pies de páginas
@@ -23,5 +23,5 @@ ________
 Andrés Merino,
 Proyecto Alephsub0 --- https://www.alephsub0.org/
 
-2020/08/14
+2023/11/27
 ```
