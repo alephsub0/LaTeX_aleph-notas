@@ -9,13 +9,13 @@
 %% This is a generated file.
 %% LaTeX class for typesetting notes
 %% 
-%% Copyright (C) 2020 by Andres Merino <mat.andresmerino@gmail.com>
+%% Copyright (C) 2023 by Andres Merino <mat.andresmerino@gmail.com>
 %% 
 %% Para un mejor uso y entendimiento de la actual clase,
 %% consultar la documentación.
 %% 
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
-\ProvidesClass{aleph-notas}[2020/08/14 v1.1]
+\ProvidesClass{aleph-notas}[2023/11/27 v2.0]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,59 +38,93 @@
     inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
 \DeclareOption{compacto}{
     \PassOptionsToPackage{paperwidth=160mm,paperheight=240mm,twoside,
-    inner=1.7cm,outer=1.7cm,top=2.25cm,bottom=2.25cm}{geometry}}
+    inner=1.7cm,outer=1.7cm,top=2cm,bottom=2cm}{geometry}}
 \DeclareOption{a4}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,headheight=14pt}{geometry}}
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
-    inner=1.7cm,outer=1.7cm,top=2.25cm,bottom=2.25cm}{geometry}}
-%%  Opción de formato |fclasico| o |fnuevo|.
-\DeclareOption{fclasico}{\renewcommand\@tipo{fclasico}}
-\DeclareOption{fnuevo}{\renewcommand\@tipo{fnuevo}}
+    inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
 %%  Opción para desplegar comentarios
 \DeclareOption{comentarios}{\setboolean{comentarios}{true}}
 %%  Opción para desplegar códigos
 \DeclareOption{codigo}{\setboolean{codigo}{true}}
-%%  Opciones predeterminadas son |compacto|, |fclasico| y |10pt|.
-\ExecuteOptions{compacto,fclasico,10pt}
+%%  Opciones predeterminadas son |compacto|, y |10pt|.
+\ExecuteOptions{compacto,10pt}
 \ProcessOptions\relax
 \LoadClass{article}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Son necesarios los siguientes paquetes para dar formato al documento.
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{iftex}
+\ifPDFTeX % LaTeX y pdfLaTeX
+    \RequirePackage[utf8]{inputenc}
+\else % XeLaTeX
+\fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
-\RequirePackage{calc}
-\RequirePackage{etex}
 \RequirePackage{xcolor}
 \RequirePackage{amsmath,amsthm}
-\RequirePackage{mdframed}
+\RequirePackage{enumitem}
 \RequirePackage[many]{tcolorbox}
 \RequirePackage{fontawesome}
-\RequirePackage{mathpazo}
 \RequirePackage{graphicx}
 \RequirePackage{titlesec}
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
 \RequirePackage{titletoc}
 \RequirePackage{comment}
-\RequirePackage[many]{tcolorbox}
 \RequirePackage[font={small},labelfont={bf,small},
    justification=centerlast]{caption}
 \RequirePackage{float}
 \RequirePackage{geometry}
+\RequirePackage{tabularray}
 \RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% --- Paquetes de tipografía
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% El siguiente comando define las opciones de tipografía a utilizar de acuerdo al tipo de compilador
+\newcommand{\fuente}[1]{
+    \ifthenelse{\equal{#1}{mathpazo}}
+    {
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage{mathpazo}
+        \else % XeLaTeX
+            \RequirePackage{fontspec}
+            \RequirePackage{mathpazo}
+            \setmainfont
+             [ BoldFont       = texgyrepagella-bold.otf ,
+               ItalicFont     = texgyrepagella-italic.otf ,
+               BoldItalicFont = texgyrepagella-bolditalic.otf ]
+             {texgyrepagella-regular.otf}
+            % \RequirePackage{newpxtext,newpxmath}
+        \fi
+    }{}
+    \ifthenelse{\equal{#1}{montserrat}}
+    {
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage[defaultfam,tabular,lining]{montserrat}
+                \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+            \RequirePackage[OT1]{eulervm}
+            \renewcommand{\labelitemi}{$\bullet$}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \else % XeLaTeX
+            \RequirePackage[OT1]{eulervm}
+            \RequirePackage{fontspec}
+            \setmainfont{montserrat}
+            \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \fi
+    }{}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Variables internas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  La siguiente es la lista de las variables internas utilizadas para el formato.
-\newcommand\@universidad{Escuela Politécnica Nacional}
-\newcommand\@longtitulo{0.75\linewidth}
+\newcommand\@institucion{Alephsub0}
+\newcommand\@temacorto{}
 \newcommand\@interlineado{1.2}
-\newcommand\@espteo{-0.75ex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Colores predeterminados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,22 +146,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Definición de comandos de datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Universidad
-\newcommand{\universidad}[1]%
-    {\renewcommand\@universidad{#1}}
+%%  Institución
+\newcommand{\institucion}[1]%
+    {\renewcommand\@institucion{#1}}
 %%  Autor: autor corto, autor normal
 \newcommand{\autor}[2][]{\ifthenelse{\equal{#1}{}}
    {\newcommand\@autorcorto{#2}\newcommand\@autor{#2}}
    {\newcommand\@autorcorto{#1}\newcommand\@autor{#2}}}
-%%  Materia
-\newcommand{\materia}[1]%
-    {\newcommand\@materia{#1}}
-%%  Examen
-\newcommand{\nota}[1]%
-    {\newcommand\@nota{#1}}
+%%  Carrera
+\newcommand{\carrera}[1]%
+    {\newcommand\@carrera{#1}}
+%%  Asignatura
+\newcommand{\asignatura}[1]%
+    {\newcommand\@asignatura{#1}}
 %%  Tema
-\newcommand{\tema}[1]%
-    {\newcommand\@tema{ #1}}
+\newcommand{\tema}[2][]{\ifthenelse{\equal{#1}{}}
+   {\renewcommand\@temacorto{#2}\newcommand\@tema{#2}}
+   {\renewcommand\@temacorto{#1}\newcommand\@tema{#2}}}
 %%  Fecha
 \newcommand{\fecha}[1]%
     {\newcommand\@fecha{#1}}
@@ -139,65 +174,52 @@
 \newcommand{\logodos}[2][0.1\linewidth]%
     {\newcommand\@logodos{#2}
     \newcommand\@longlogodos{#1}}
-%%  Longitud del título
-\newcommand{\longtitulo}[1]%
-    {\renewcommand\@longtitulo{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Encabezado
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Comando para generar el título
 \newcommand\@titulo{
-    \large\textbf{\textsc{\@universidad\\
-    \ifthenelse{\isundefined{\@hoja}}{}{\@hoja\\}
+    \textbf{\textsc{\large\@institucion
     \normalsize
-    \@materia\ \ $\bullet$\ \
-    \@nota}}\\
-    \ifthenelse{\isundefined{\@tema}}{}{\normalsize\textsc{\@tema}\\}
+    \ifthenelse{
+            \isundefined{\@carrera}
+            \OR
+            \isundefined{\@asignatura}
+        }
+        {
+            \ifdef{\@carrera}{\\\@carrera}{}
+            \ifdef{\@asignatura}{\\\@asignatura}{}
+        }
+        {\\\@carrera\ \ $\bullet$\ \ \@asignatura}}}
+    \ifdef{\@tema}{\\\normalsize\textsc{\@tema}}{}
+    \\\textsl{\@autor} \ifdef{\@fecha}{\ \ $\bullet$\ \ \ \textsl{\@fecha}}{}
     }
 \newcommand\@inlogouno{
     \parbox{\@longlogouno}
-    {\centering
-    \ifthenelse{\isundefined{\@logouno}}{\hspace{0pt}}
-        {\includegraphics[width=0.95\linewidth]{\@logouno}}}
+        {\includegraphics[width=\linewidth]{\@logouno}}
     }
 \newcommand\@inlogodos{
     \parbox{\@longlogodos}
-    {\centering
-    \ifthenelse{\isundefined{\@logodos}}{\hspace{0pt}}
-        {\includegraphics[width=0.95\linewidth]{\@logodos}}}
+        {\includegraphics[width=\linewidth]{\@logodos}}
     }
 %%  Comando para generar el encabezado
 \newcommand{\encabezado}{
-    \vspace*{-10mm}
+    \vspace*{-15mm}
     \begingroup\color{colortext}
     \thispagestyle{plain}
     \noindent
-    \begin{minipage}{0.999\linewidth}
-    \begin{center}
-    \hrule
-    \vspace{2mm}
-    \ifthenelse{\isundefined{\@logodos}}
-        {\ifthenelse{\isundefined{\@logouno}}
-            {\@titulo}
-            {
-                \@inlogouno
-                \parbox{\@longtitulo}{\centering \@titulo}
-            }
-        }
-        {
-            \@inlogouno
-            \parbox{\@longtitulo}{\centering \@titulo}
-            \@inlogodos
-        }
-    \end{center}
-    \vspace{0mm}
-    \noindent
-    \@fecha\hspace{\fill}
-    \@autor\\[-3mm]
-    \hrule
+    \begin{minipage}{\linewidth}
+    \begin{tblr}{
+      colspec = {Q[m,c]<{\hspace{.02\linewidth}}|[1.2pt]>{\hspace{.02\linewidth}}X[m,l]},
+      colsep = 2pt
+    }
+        \ifthenelse{\isundefined{\@logouno}}{}{\@inlogouno}
+        \ifthenelse{\isundefined{\@logodos}}{}
+            {\hspace{0.02\textwidth}\@inlogodos}
+        & \parbox{.98\linewidth}{\@titulo}
+    \end{tblr}
     \end{minipage}
-    \endgroup
-    \vspace{5mm}
+    \endgroup\\
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Estilo página
@@ -209,7 +231,7 @@
 \fancyhf{}
 \fancyfoot[C]{\thepage}
 \fancyhead[LE,RO]{\bfseries\@autorcorto}
-\fancyhead[LO,RE]{\bfseries\@nota}
+\fancyhead[LO,RE]{\bfseries\ifdef{\@temacorto}{\@temacorto}{}}
 \renewcommand{\headrulewidth}{.2pt}
 \renewcommand{\footrulewidth}{0pt}
 \addtolength{\headheight}{.1pt}
@@ -249,111 +271,22 @@
     \tcbset{ color/.code = {\def\tcb@@color{#1} } }
 \def\tcb@@icono{{\large\faWarning}}
     \tcbset{ icono/.code = {\def\tcb@@icono{#1} } }
-%%  Estilo de teorema clásico
+%%  Estilo de teorema.
 \newtheoremstyle{estiloteorema}%
-    {9pt}{9pt}{}{0pt}{\bfseries\scshape}{.}{ }{}
-%%  Estilo de teorema nuevo
-\newtheoremstyle{estiloteoreman}%
-    {9pt}{9pt}{}{0pt}{\bfseries\sffamily\color{\tcb@@color}}{}{ }{\thmname{#1}\thmnumber{ #2}.\thmnote{ --#3--}}
-%%  Formatos del estilo clásico
+    {9pt}{9pt}{}{0pt}
+    {\bfseries\color{\tcb@@color}}
+    {}{ }
+    {\textsc{\thmname{#1}\thmnumber{ #2}}\thmnote{: #3}.}
+%%  Formatos del estilo
 %%
 %%  Recuadro sin título aparte
 \tcbset{ recuadrost/.style ={
     before skip=10pt,arc=0mm,breakable,enhanced,
-    colback=\tcb@@color!5,colframe=\tcb@@color,
+    colback=\tcb@@color!7,colframe=\tcb@@color,
     boxrule=0pt,leftrule=2pt,
     top=0.5mm,bottom=0.5mm,left=2mm,right=2mm,
     fontupper=\normalsize,
-    parbox=false
-    }
-    }
-%%  Escritura del título
-\newcommand\tbc@escrituratitulo[1][]{%
-    \strut{%
-        \bfseries\scshape\tcb@@tipo~\arabic{\tcb@@contador}%
-            \ifthenelse{\equal{#1}{}}{}{:\upshape~#1}%
-        }
-    }
-%%  Dibujo del título a la izquierda
-\newcommand\tbc@dibujotituloizq[1][]{%
-    % Creación del nombre para medirlo
-    \node[xshift=13pt,yshift=\@espteo,thick,anchor=west](titulo) at (frame.north west)%
-        {\tbc@escrituratitulo[#1]};
-    % Sombra del recuadro
-    \path[fill=\tcb@@color!60!black]
-        ([yshift=-1.75ex,xshift=-0.1ex]titulo.north west)
-        arc[start angle=0,end angle=180,radius=0.9ex]
-        ([yshift=-1.75ex,xshift=0.1ex]titulo.north east)
-        arc[start angle=180,end angle=0,radius=0.9ex];
-    % Recuadro
-    \path[fill=\tcb@@color!20]
-        % Linea superior
-        ([xshift=-0.9ex,yshift=-0.85ex]titulo.north west)
-        -- ([xshift=0.9ex,yshift=-0.85ex]titulo.north east)
-        % Linea inferior
-        [rounded corners=0.7ex]  --  ([xshift=0.4ex,yshift=-0.95ex]titulo.north east)--
-        ([yshift=0.6ex]titulo.south east) -- ([yshift=0.6ex]titulo.south west)
-        % Ciclo
-        --  ([xshift=-0.4ex,yshift=-0.95ex]titulo.north west)
-        [sharp corners] -- cycle;
-    % Escritura del nombre
-    \node[xshift=13pt,yshift=-0.8ex,thick,anchor=west] at (frame.north west)%
-        {\tbc@escrituratitulo[#1]};
-    }
-%%  Recuadro con título aparte a la izquierda
-\tcbset{ recuadroctizq/.style ={
-    % Opciones generales
-    before skip=10pt,arc=0mm,breakable,enhanced,
-    colback=\tcb@@color!5,colframe=\tcb@@color,
-    boxrule=0pt,leftrule=2pt,
-    top=4mm,bottom=0.5mm,left=2mm,right=2mm,
-    topsep at break=-4mm,
-    fontupper=\normalsize,
-    code={\refstepcounter{\tcb@@contador}},
-    parbox=false,
-    % Dibujo del título
-    overlay unbroken and first = {\tbc@dibujotituloizq[#1]}
-    }
-    }
-%%  Dibujo del título a la derecha
-\newcommand\tbc@dibujotituloder[1][]{%
-    % Creación del nombre para medirlo
-    \node[xshift=-13pt,yshift=\@espteo,thick,anchor=east](titulo) at (frame.north east)%
-        {\tbc@escrituratitulo[#1]};
-    % Sombra del recuadro
-    \path[fill=\tcb@@color!60!black]
-        ([yshift=-1.75ex,xshift=-0.1ex]titulo.north west)
-        arc[start angle=0,end angle=180,radius=0.9ex]
-        ([yshift=-1.75ex,xshift=0.1ex]titulo.north east)
-        arc[start angle=180,end angle=0,radius=0.9ex];
-    % Recuadro
-    \path[fill=\tcb@@color!20]
-        % Linea superior
-        ([xshift=-0.9ex,yshift=-0.85ex]titulo.north west)
-        -- ([xshift=0.9ex,yshift=-0.85ex]titulo.north east)
-        % Linea inferior
-        [rounded corners=0.7ex]  --  ([xshift=0.4ex,yshift=-0.95ex]titulo.north east)--
-        ([yshift=0.6ex]titulo.south east) -- ([yshift=0.6ex]titulo.south west)--
-        % Ciclo
-        ([xshift=-0.4ex,yshift=-0.95ex]titulo.north west)
-        [sharp corners] -- cycle;
-    % Escritura del nombre
-    \node[xshift=-13pt,yshift=-0.8ex,thick,anchor=east] at (frame.north east)%
-        {\tbc@escrituratitulo[#1]};
-    }
-%%  Recuadro con título aparte a la derecha
-\tcbset{ recuadroctder/.style ={
-    % Opciones generales
-    before skip=10pt,arc=0mm,breakable,enhanced,
-    colback=\tcb@@color!5,colframe=\tcb@@color,
-    boxrule=0pt,leftrule=2pt,
-    top=4mm,bottom=0.5mm,left=2mm,right=2mm,
-    topsep at break=-4mm,
-    fontupper=\normalsize,
-    code={\refstepcounter{\tcb@@contador}},
-    parbox=false,
-    % Dibujo del título
-    overlay unbroken and first= {\tbc@dibujotituloder[#1]}
+    % parbox=false
     }
     }
 %%  Estilo de post-it
@@ -366,7 +299,7 @@
     drop fuzzy shadow,
     left=6mm,right=2mm,top=0.5mm,bottom=0.5mm,
     sharp corners,rounded corners=southeast,arc is angular,arc=3mm,
-    parbox=false,
+    % parbox=false,
     underlay unbroken and last = {%
         \path[fill=tcbcolback!80!black]
         ([yshift=3mm]interior.south east) --++ (-0.4,-0.1) --++ (0.1,-0.2);
@@ -381,19 +314,17 @@
         }
     }
     }
-%%  Formatos del estilo nuevo
-%%
 %%  Recuadro con título aparte interno
 \tcbset{ recuadroctint/.style ={
     % -> Opciones generales
     before skip=10pt,arc=0mm,breakable,enhanced,
-    colback=gray!5,colframe=gray!5,colbacktitle=gray!5,
+    colback=colordef!7,colframe=colordef!7,colbacktitle=colordef!7,
     boxrule=0pt,toprule=0.4pt,
     drop fuzzy shadow,
     top=0.5mm,bottom=0.5mm,left=2mm,right=2mm,
     fontupper=\normalsize,
     code={\refstepcounter{\tcb@@contador}},
-    parbox=false,
+    % parbox=false,
     % Dibujo del título
     overlay unbroken and first = {
         % Borde superior grueso
@@ -402,74 +333,36 @@
         },
     overlay middle and last = { },
     title={
-            \bfseries\sffamily\color{\tcb@@color}
-                \tcb@@tipo~\arabic{\tcb@@contador}%
-                \ifthenelse{\equal{#1}{}}{}{:~~--#1--}%
+            \color{\tcb@@color}\bfseries
+            {\scshape\tcb@@tipo~\arabic{\tcb@@contador}}%
+                %
+            \ifthenelse{\equal{#1}{}}{.}{: #1.}%
         },
     }
     }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Definición de ambientes de teoremas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% --- Teoremas en el formato clásico
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\@tipo}{fclasico}}
-{
 %%  Ambientes sin recuadro: |ejem| y |obs|
 \theoremstyle{estiloteorema}
     \newtheorem{ejem}{Ejemplo}
-    \newtheorem*{obs}{Observaci\'on}
-%%  Ambientes con recuadrost: |prop|, |cor|, |lem|, |ejer|.
-    \newtheorem{prop}{Proposici\'on}
-        \tcolorboxenvironment{prop}{color=colordef,recuadrost}
-    \newtheorem{cor}[prop]{Corolario}
-        \tcolorboxenvironment{cor}{color=colordef,recuadrost}
-    \newtheorem{lem}[prop]{Lema}
-        \tcolorboxenvironment{lem}{color=colordef,recuadrost}
-    \newtheorem{ejer}{Ejercicio}
-        \tcolorboxenvironment{ejer}{color=colordef,recuadrost}
-%%  Ambientes con título aparte: |teo|.
-\newtcolorbox{teo}[1][]
-    {tipo=Teorema,contador=prop,color=colordef,recuadroctizq={#1}}
-%%  Ambientes con título aparte: |defi|.
-\newcounter{defi}
-\renewcommand{\thedefi}{\arabic{defi}}
-\newtcolorbox{defi}[1][]
-    {tipo=Definición,contador=defi,color=colordef,recuadroctizq={#1}}
-%%  Ambientes con título aparte: |axioma|.
-\newcounter{axioma}
-\renewcommand{\theaxioma}{\arabic{axioma}}
-\newtcolorbox{axioma}[1][]
-    {tipo=Axioma,contador=axioma,color=colordef,recuadroctizq={#1}}
-%%  Ambientes advertencia: |advertencia|.
-\newtcolorbox{advertencia}
-    {color=yellow,postit}
-}
-{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% --- Teoremas en el formato nuevo
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Ambientes sin recuadro: |ejem| y |obs|
-\theoremstyle{estiloteoreman}
-    \newtheorem{ejem}{Ejemplo}
-    \newtheorem*{obs}{\tikz \fill[colordef] (1ex,1ex) circle (3.5pt); Observaci\'on}
+    \newtheorem*{obs}{\tikz \fill[colordef] (1ex,1ex) circle (.8ex); Observaci\'on}
 %%  Ambientes con recuadrost: |prop|, |cor|, |lem|, |ejer|.
     \newtheorem{prop}{Proposici\'on}
         \tcolorboxenvironment{prop}{%
-            color=colordef,recuadrost,colback=gray!5,drop fuzzy shadow
+            color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
         }
     \newtheorem{cor}[prop]{Corolario}
         \tcolorboxenvironment{cor}{%
-            color=colordef,recuadrost,colback=gray!5,drop fuzzy shadow
+            color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
         }
     \newtheorem{lem}[prop]{Lema}
         \tcolorboxenvironment{lem}{%
-            color=colordef,recuadrost,colback=gray!5,drop fuzzy shadow
+            color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
         }
     \newtheorem{ejer}{Ejercicio}
         \tcolorboxenvironment{ejer}{%
-            color=colordef,recuadrost,colback=gray!5,drop fuzzy shadow
+            color=colordef,recuadrost,colback=colordef!7,drop fuzzy shadow
         }
 %%  Ambientes con título aparte: |teo|.
 \newtcolorbox{teo}[1][]
@@ -487,9 +380,8 @@
 %%  Ambientes advertencia: |advertencia|.
 \newtcolorbox{advertencia}
     {color=yellow,postit}
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% --- Ambiente opcionales
+%% --- Ambientes opcionales
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Estilo de comentarios para el docente
 \ifthenelse{\boolean{comentarios}}{
