@@ -8,6 +8,7 @@
 \usepackage{float}
 \usepackage[margin=2.5cm,left=3.5cm]{geometry}
 \usepackage{mathpazo}
+\usepackage{changelog}
 
 \setlength{\parskip}{0.2\baselineskip}
 \renewcommand{\baselinestretch}{1.1}
@@ -211,24 +212,36 @@ También se pueden generar más ambientes de teoremas, con otros formatos y colo
 Cualquier problema adicional, por favor reportarlo a\\ 
 \url{mat.andresmerino@gmail.com}.
 
-\section{Historial de versiones}
-
-\begin{itemize}
-    \item[\textbf{1.0}] (2020-01-07) \textit{Primera versión estable}
-    \item[\textbf{1.1}] (2020-08-14)
-        \begin{itemize}
-            \item Se incluye estilos de formato para ambientes: fclasico, fnuevo
-            \item Se arregla el estilo de sección no numerada y para subsecciones
-            \item Se implementa hipervínculos sin color
-        \end{itemize}
-    \item[\textbf{2.0}] (2023-11-27)
-        \begin{itemize}
-            \item Se elimina el formato clásico para el estilo de los teoremas.
-            \item Se añade la posibilidad de seleccionar fuentes: Palatino Linotype (mathpaso) y Monstserrat
-            \item Se modifca el diseño del encabezado y los encabezados y pies de páginas
-        \end{itemize}
-\end{itemize}
-
+\begin{changelog}[author=Andés Merino,
+    sectioncmd=\section]
+    % version 2.0
+    \begin{version}[v=2.0,
+        date=2023-11-27]
+        \removed
+        \item Se elimina el formato clásico para el estilo de los teoremas.
+        \added 
+        \item Se añade la posibilidad de seleccionar fuentes: Palatino Linotype (mathpaso) y Monstserrat
+        \changed 
+        \item Se modifca el diseño del encabezado y los encabezados y pies de páginas
+    \end{version}
+    % version 1.1
+    \begin{version}[v=1.1,
+    date=2020-08-14]
+    \fixed
+    \item Se arregla el estilo de sección no numerada y para subsecciones
+    \added
+    \item Se incluye estilos de formato para ambientes: fclasico, fnuevo
+    \item Se implementa hipervínculos sin color
+    \end{version}
+    % version 1.0
+    \shortversion{v=1.0,
+    date=2020-01-07,
+    changes=Primera versión del paquete \texttt{aleph-notas}}
+    % version 0.1
+    \shortversion{v=0.1,
+    date=2019-10-23,
+    changes=Última versión del parquete \texttt{pubciencias-notas}}
+\end{changelog}
 
 \newpage
 \DocInput{aleph-notas.dtx}
