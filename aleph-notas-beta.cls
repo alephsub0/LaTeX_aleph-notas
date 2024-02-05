@@ -44,7 +44,11 @@
 %% --- Paquetes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Son necesarios los siguientes paquetes para dar formato al documento.
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{iftex}
+\ifPDFTeX % LaTeX y pdfLaTeX
+    \RequirePackage[utf8]{inputenc}
+\else % XeLaTeX
+\fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\@idioma]{babel}
 \RequirePackage{xcolor}
@@ -70,14 +74,35 @@
 \newcommand{\fuente}[1]{
     \ifthenelse{\equal{#1}{mathpazo}}
     {
-        \RequirePackage{mathpazo}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage{mathpazo}
+        \else % XeLaTeX
+            \RequirePackage{fontspec}
+            \RequirePackage{mathpazo}
+            \setmainfont
+             [ BoldFont       = texgyrepagella-bold.otf ,
+               ItalicFont     = texgyrepagella-italic.otf ,
+               BoldItalicFont = texgyrepagella-bolditalic.otf ]
+             {texgyrepagella-regular.otf}
+            % \RequirePackage{newpxtext,newpxmath}
+        \fi
     }{}
     \ifthenelse{\equal{#1}{montserrat}}
     {
-        \RequirePackage[defaultfam,tabular,lining]{montserrat}
-            \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
-        \RequirePackage{eulervm}
-        \renewcommand{\labelitemi}{$\bullet$}
+        \ifPDFTeX % LaTeX y pdfLaTeX
+            \RequirePackage[defaultfam,tabular,lining]{montserrat}
+                \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+            \RequirePackage[OT1]{eulervm}
+            \renewcommand{\labelitemi}{$\bullet$}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \else % XeLaTeX
+            \RequirePackage[OT1]{eulervm}
+            \RequirePackage{fontspec}
+            \setmainfont{montserrat}
+            \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
+            \renewcommand{\labelitemi}{$\bullet$}
+            \DeclareMathSizes{10}{10.78}{7}{7}
+        \fi
     }{}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -248,7 +273,7 @@
     boxrule=0pt,leftrule=2pt,
     top=0.5mm,bottom=0.5mm,left=2mm,right=2mm,
     fontupper=\normalsize,
-    parbox=false
+    % parbox=false
     }
     }
 %%  Estilo de post-it
