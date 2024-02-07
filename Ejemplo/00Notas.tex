@@ -1,19 +1,21 @@
-\documentclass[a4,11pt]{aleph-notas}
+\documentclass[a4]{aleph-notas-beta}
 
 % -- Paquetes adicionales
 \usepackage{enumitem}
 \usepackage{aleph-comandos}
 
 % -- Datos del libro
-\autor{Andrés Merino}
-\materia{Cálculo Vectorial}
-\nota{Resumen no. 1}
-\tema{Cambio de coordenadas}
-\fecha{Agosto de 2020}
+\institucion{Escuela de Ciencias Físicas  y Matemática}
+\carrera{Enfermería}
+\asignatura{Bioestadística}
+\autor{Mat. Andrés Merino}
+\tema{Cronograma y evaluaciones}
+\fecha{Semestre 2022-1}
 
-\logodos[1.0cm]{Logos/logo01}
-\logouno[2.8cm]{Logos/logo02}
-
+\fuente{montserrat}
+% \fuente{mathpazo}
+\logouno[0.25\textwidth]{Logos/logo02}
+% \logodos[1.0cm]{Logos/logo01}
 
 
 
@@ -36,6 +38,30 @@
     para $(r,\theta)\in \mathbb{R}^2$.
 \end{defi}
 
+¿?¡!ñ x$x$ a$a$ F$F$ f$f$ p$p$ a$\alpha$ b$\beta$
+
+\textit{Hola} \textsl{Hola} Hola \textsc{Hola} \texttt{Hola} \textsf{Hola}
+
+Para todo $x$ y $y$ Dada la función $f$ con $A\subseteq \mathbb{R}$ y el conjunto $I\subseteq A$, $f$ es:
+    \begin{itemize}
+    \item
+       \textbf{creciente en $I$} si para todo $u,v\in I$ tales que $u\leq v$, se tiene que $f(u)\leq f(v)$;
+    \item
+        \textbf{estrictamente creciente en $I$} si para todo $u,v\in I$ tales que $u< v$, se tiene que $f(u)< f(v)$;
+    \item
+        \textbf{decreciente en $I$} si para todo $u,v\in I$ tales que $u\leq v$, se tiene que $f(u)\geq f(v)$;
+    \item
+        \textbf{estrictamente decreciente en $I$} si para todo $u,v\in I$ tales que $u< v$, se tiene que $f(u)> f(v)$; y
+    \item
+        \textbf{monótona en $I$} si es creciente o decreciente en $I$.
+    \end{itemize}
+
+Calculemos $\displaystyle\lim_{x\to 0}f(x)$ para todo $x$ y $y$ en los $\mathbb{N}$.
+
+\[
+    x^2 + \cos(x) - \int x^5 dx - \frac{\alpha}{\beta-1}
+\]
+
 \begin{advertencia}
     Notemos que si $(x,y)=P(r,\theta)$, entonces se tiene que
     \[
@@ -43,9 +69,36 @@
         \texty
         \tan(\theta)=\frac y x,
     \]  
-    para todo $(r,\theta)\in\mathbb{R}^2$ tal que $x\neq 0$.
+    para todo $(r,\theta)\in\mathbb{R}^2$ tal que $\alpha\neq 0$.
 \end{advertencia}
 
+\begin{teo}
+    Hola
+\end{teo}
+
+\begin{teo}[Título del teorema]
+    Hola
+\end{teo}
+
+\begin{cor}
+    Hola
+\end{cor}
+
+\begin{cor}[Título]
+    Hola
+\end{cor}
+
+\begin{lem}
+    Hola
+\end{lem}
+
+\begin{obs}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis massa vitae dui auctor ornare. Quisque fermentum ex ligula. Fusce eget placerat turpis, a gravida quam. Nullam sit amet neque dignissim, dignissim est at, mollis sem. Pellentesque vulputate malesuada libero, ac porttitor massa mattis sit amet. Etiam aliquet consequat iaculis.
+\end{obs}
+
+\begin{ejem}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis massa vitae dui auctor ornare. Quisque fermentum ex ligula. Fusce eget placerat turpis, a gravida quam. Nullam sit amet neque dignissim, dignissim est at, mollis sem. Pellentesque vulputate malesuada libero, ac porttitor massa mattis sit amet. Etiam aliquet consequat iaculis.
+\end{ejem}
 
 \begin{ejer}
     Calcular \[\iint_D x^2+y^2\,dxdy\] donde $D=\{(x,y\in\mathbb{R}^2:x^2+y^2\leq 4,\ y>0\}$.
