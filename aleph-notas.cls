@@ -115,6 +115,7 @@
             \setmainfont{montserrat}
             \DeclareSymbolFont{operators}{\encodingdefault}{\familydefault}{m}{n}
             \DeclareMathSizes{10}{10.78}{7}{7}
+            \renewcommand{\labelitemi}{$\bullet$}
         \fi
     }{}
 }
