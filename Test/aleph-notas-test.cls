@@ -2,7 +2,7 @@
 %% This is file `aleph-notas-beta.cls',
 %% 
 \NeedsTeXFormat{LaTeX2e}[2009/09/24]
-\ProvidesClass{aleph-notas-beta}[2022/08/05 v0.1]
+\ProvidesClass{aleph-notas-test}[2022/08/05 v0.1]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Inicialización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -22,22 +22,26 @@
 %%  Opciones predeterminadas de tamaño de página |compacto| y |amplio|.
 \DeclareOption{amplio}{
     \PassOptionsToPackage{paperwidth=195mm,paperheight=265mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,
+    headsep=5mm}{geometry}}
 \DeclareOption{compacto}{
     \PassOptionsToPackage{paperwidth=160mm,paperheight=240mm,twoside,
-    inner=1.7cm,outer=1.7cm,top=2cm,bottom=2cm}{geometry}}
+    inner=1.7cm,outer=1.7cm,top=2cm,bottom=2cm,
+    headsep=5mm}{geometry}}
 \DeclareOption{a4}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,headheight=14pt}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,
+    headheight=14pt,headsep=5mm}{geometry}}
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
-    inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
+    inner=1cm,outer=1cm,top=2cm,bottom=2cm,
+    headsep=5mm}{geometry}}
 %%  Opción para desplegar comentarios
 \DeclareOption{comentarios}{\setboolean{comentarios}{true}}
 %%  Opción para desplegar códigos
 \DeclareOption{codigo}{\setboolean{codigo}{true}}
 %%  Opciones predeterminadas son |compacto| y |10pt|.
-\ExecuteOptions{compacto,10pt}
+\ExecuteOptions{a4,10pt}
 \ProcessOptions\relax
 \LoadClass{article}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,9 +69,11 @@
 \RequirePackage[font={small},labelfont={bf,small},
    justification=centerlast]{caption}
 \RequirePackage{float}
-\RequirePackage{geometry}
+\RequirePackage[]{geometry}
 \RequirePackage{tabularray}
 \RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
+
+\RequirePackage{needspace}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes de tipografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,17 +233,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Estilo de sección
 \titleformat{\section}[display]
-    {\vspace*{-2mm}\bfseries\scshape\centering}
-    {}{1ex}
-    {\color{colortext}\large\titlerule\vspace{.05ex}
+    {\bfseries\scshape\centering}
+    {}{0ex}
+    {\color{colortext}\large\titlerule\vspace{0.25ex}
     \thesection.\ }
-    [\color{colortext}\vspace{.2ex}\titlerule]
+    [\color{colortext}\titlerule]
+\titlespacing{\section} 
+    {0pt}
+    {-0.5ex plus 1ex}
+    {2.3ex plus .5ex}
 %%  Estilo de sección no numerada
 \titleformat{name=\section,numberless}[display]
-    {\vspace*{-2mm}\bfseries\scshape\centering}
-    {}{1ex}
-    {\color{colortext}\large\titlerule\vspace{.05ex}}
-    [\color{colortext}\vspace{.2ex}\titlerule]
+    {\bfseries\scshape\centering}
+    {}{0ex}
+    {\color{colortext}\large\titlerule\vspace{.25ex}}
+    [\color{colortext}\titlerule]
 %%  Estilo subsecciones
 \titleformat{\subsection}
     {\color{colortext}\normalsize\bfseries}
