@@ -72,7 +72,7 @@ Distribuido bajo la licencia MIT.
   [![GitHub][github-shield]][github-url-aemt]
 
 
-**Daniel Lara** (aemerinot@gmail.com) 
+**Daniel Lara**
 
 - Estudiante de Matemática en Escuela Politécnica Nacional
 - Colaborador del [Proyecto Alephsub0](https://www.alephsub0.org/about/)
