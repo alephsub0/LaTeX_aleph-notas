@@ -44,13 +44,15 @@ Este proyecto se ha probado con Tex Live 2023 sin problemas.
 ## Últimos cambios
 
 ```
+- 2.0  2024-04-21
+   - Se corrige un problema con el espacio en los títulos de secciones.
 - 2.0  2024-04-20
-   - Se cambió la licencia
-   - Se mejoró el achivo README
+   - Se cambió la licencia.
+   - Se mejoró el archivo README.
 - 2.0  2023-11-27
-   - Se elimina el estilo clásico
-   - Se agrega soporte nativo para la fuente Monstserrat
-   - Se modifca el diseño del encabezado y los encabezados y pies de páginas
+   - Se elimina el estilo clásico.
+   - Se agrega soporte nativo para la fuente Monstserrat.
+   - Se modifica el diseño del encabezado y los encabezados y pies de páginas.
 ```
 
 

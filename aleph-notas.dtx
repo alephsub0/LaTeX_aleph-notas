@@ -1,6 +1,6 @@
 % \iffalse 
 %
-% Copyright (C) 2023 by Andres Merino <mat.andresmerino@gmail.com>
+% Copyright (C) 2024 by Andres Merino <aemerinot@gmail.com>
 % 
 % Para un mejor uso y entendimiento de la actual clase, consultar la documentación.
 % -----------------------------------------------------------
@@ -49,16 +49,20 @@
 %    \begin{macrocode}
 \DeclareOption{amplio}{
     \PassOptionsToPackage{paperwidth=195mm,paperheight=265mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,
+    headsep=5mm}{geometry}}
 \DeclareOption{compacto}{
     \PassOptionsToPackage{paperwidth=160mm,paperheight=240mm,twoside,
-    inner=1.7cm,outer=1.7cm,top=2cm,bottom=2cm}{geometry}}
+    inner=1.7cm,outer=1.7cm,top=2cm,bottom=2cm,
+    headsep=5mm}{geometry}}
 \DeclareOption{a4}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,
-    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,headheight=14pt}{geometry}}
+    inner=2.2cm,outer=2.2cm,top=2.25cm,bottom=2.25cm,
+    headheight=14pt,headsep=5mm}{geometry}}
 \DeclareOption{a5}{
     \PassOptionsToPackage{paperwidth=148mm,paperheight=210mm,twoside,
-    inner=1cm,outer=1cm,top=2cm,bottom=2cm}{geometry}}
+    inner=1cm,outer=1cm,top=2cm,bottom=2cm,
+    headsep=5mm}{geometry}}
 %    \end{macrocode}
 %%  Opción para desplegar comentarios
 %    \begin{macrocode}
@@ -334,19 +338,23 @@
 %%  Estilo de sección
 %    \begin{macrocode}
 \titleformat{\section}[display]
-    {\vspace*{-2mm}\bfseries\scshape\centering}
-    {}{1ex}
-    {\color{colortext}\large\titlerule\vspace{.05ex}
+    {\bfseries\scshape\centering}
+    {}{0ex}
+    {\color{colortext}\large\titlerule\vspace{0.25ex}
     \thesection.\ }
-    [\color{colortext}\vspace{.2ex}\titlerule]
+    [\color{colortext}\titlerule]
+\titlespacing{\section} 
+    {0pt}
+    {-0.5ex plus 1ex}
+    {2.3ex plus .5ex}
 %    \end{macrocode}
 %%  Estilo de sección no numerada
 %    \begin{macrocode}
 \titleformat{name=\section,numberless}[display]
-    {\vspace*{-2mm}\bfseries\scshape\centering}
-    {}{1ex}
-    {\color{colortext}\large\titlerule\vspace{.05ex}}
-    [\color{colortext}\vspace{.2ex}\titlerule]
+    {\bfseries\scshape\centering}
+    {}{0ex}
+    {\color{colortext}\large\titlerule\vspace{.25ex}}
+    [\color{colortext}\titlerule]
 %    \end{macrocode}
 %%  Estilo subsecciones
 %    \begin{macrocode}

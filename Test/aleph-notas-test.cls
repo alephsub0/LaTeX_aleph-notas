@@ -72,8 +72,6 @@
 \RequirePackage[]{geometry}
 \RequirePackage{tabularray}
 \RequirePackage[colorlinks,allcolors=.,breaklinks]{hyperref}
-
-\RequirePackage{needspace}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% --- Paquetes de tipografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
