@@ -9,7 +9,7 @@
 <br />
 <div align="center">
 
-<h3 align="center">Clase: aleph-notas 2.0</h3>
+<h3 align="center">Clase: aleph-notas 2.0.1</h3>
   <p align="center">
     Clase para generar notas del proyecto Alephsub0.  
     <br />
@@ -44,7 +44,7 @@ Este proyecto se ha probado con Tex Live 2023 sin problemas.
 ## Últimos cambios
 
 ```
-- 2.0  2024-04-21
+- 2.0.1  2024-04-21
    - Se corrige un problema con el espacio en los títulos de secciones.
 - 2.0  2024-04-20
    - Se cambió la licencia.
@@ -54,7 +54,6 @@ Este proyecto se ha probado con Tex Live 2023 sin problemas.
    - Se agrega soporte nativo para la fuente Monstserrat.
    - Se modifica el diseño del encabezado y los encabezados y pies de páginas.
 ```
-
 
 ## Licencia
 
