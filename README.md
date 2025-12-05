@@ -44,6 +44,8 @@ Este proyecto se ha probado con Tex Live 2023 sin problemas.
 ## Últimos cambios
 
 ```
+- 2.0.2  2024-04-21
+   - Mejora compatibilidad de fuentes.
 - 2.0.1  2024-04-21
    - Se corrige un problema con el espacio en los títulos de secciones.
 - 2.0  2024-04-20
